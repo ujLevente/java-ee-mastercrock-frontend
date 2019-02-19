@@ -6,15 +6,14 @@ class Game extends Component {
 
     render() {
         return (
-            <div className="App">
-                <div className="battle-ground">
-                    <div className="p1-data">
-                        <h4>Player1</h4>
-                        <Card/>
-                    </div>
+            <div className="battle-ground">
+                <div className="p1-data">
+                    <h4>Player1</h4>
+                    <Card/>
                 </div>
             </div>
         )
     }
 }
+
 export default Game;
