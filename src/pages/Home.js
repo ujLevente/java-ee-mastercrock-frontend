@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import '../App.css';
+import Link from "react-router-dom/es/Link";
 
 class Home extends Component {
     constructor(props) {
@@ -8,8 +9,7 @@ class Home extends Component {
             joinRequest: false,
             joinGameId : "",
             username: "",
-            usernameIsSet : false,
-            gameCreated: false
+            usernameIsSet : false
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -17,7 +17,6 @@ class Home extends Component {
     }
 
     createGame() {
-        this.setState({gameCreated : true});
         let idNum = parseInt(Math.random() * (9999 - 1000) + 1000);
         localStorage.setItem("gameId", idNum);
         fetch("http://localhost:8083/create-game/" + idNum)
@@ -81,20 +80,17 @@ class Home extends Component {
                 <div>
                     {(!this.state.joinRequest) ?
                         <div>
-                            {(!this.state.gameCreated) ?
                                 <div>
-                                    <button
-                                        onClick={() => this.createGame()}
-                                    >Create game
-                                    </button>
+                                    <Link to="/game">
+                                        <button  onClick={() => this.createGame()}>
+                                            Create Game
+                                        </button>
+                                    </Link>
                                     < button
                                         onClick={() => this.joinRequest()}
                                     >Join to existing game game
                                     </button>
                                 </div>
-                                :
-                                <h1>Created Game Id: {localStorage.getItem("gameId")}</h1>
-                            }
                         </div>
                         :
                         <div>
