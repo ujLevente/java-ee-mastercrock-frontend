@@ -11,14 +11,14 @@ class App extends Component {
                 <div>
                     <Route exact={true} path="/" render={() => {
                         return (
-                            <div className="App">
+                            <div className="Home">
                                 <Home/>
                             </div>)
                     }
                     }/>
-                    <Route exact={true} paht="/game" render={() => {
+                    <Route exact={true} path="/game" render={() => {
                         return (
-                            <div className="App">
+                            <div className="Game">
                                 <Game/>
                             </div>
                         )
