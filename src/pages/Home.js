@@ -97,11 +97,13 @@ class Home extends Component {
                             <input type="text" placeholder="Please provide game id"
                             defaultValue={this.state.joinGameId}
                             onChange={this.handleChange}/>
-                            <button
-                            onClick={() => this.joinGame()}
-                            >
-                            Join game
-                            </button>
+                            <Link to="/game">
+                                <button
+                                onClick={() => this.joinGame()}
+                                >
+                                Join game
+                                </button>
+                            </Link>
                         </div>
                     }
                 </div>
