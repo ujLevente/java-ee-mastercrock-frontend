@@ -6,9 +6,7 @@ export default class Card extends Component {
 
     onSendMessage = (msg) => {
         const selfMessage = {
-            author: "jani",
-            authorId: 1232,
-            message: msg
+            gameId: localStorage.getItem("gameId")
         };
         var sendStatus = this.props.onSendMessage(msg, selfMessage);
         return sendStatus;

@@ -28,7 +28,7 @@ export default class Socketing extends Component {
         }
     }
 
-    componentWillMount() {
+    /*componentWillMount() {
         fetch("http://localhost:8083/history")
             .then((response) => {
                 this.setState({ messages: [response.body] });
@@ -36,7 +36,7 @@ export default class Socketing extends Component {
             .catch(error => {
                 console.log('Error fetching and parsing: ' , error)
             });
-    }
+    }*/
 
     render() {
         const wsSourceUrl ="http://localhost:8083/handler";
@@ -45,7 +45,7 @@ export default class Socketing extends Component {
                 <Card messages={ this.state.messages }
                       onSendMessage={ this.sendMessage } connected={ this.state.clientConnected }/>
 
-                <SockJsClient url={ wsSourceUrl } topics={["/topic/1232"]}
+                <SockJsClient url={ wsSourceUrl } topics={["/topic/"+localStorage.getItem("gameId")]}
                               onMessage={ this.onMessageReceive } ref={ (client) => { this.clientRef = client }}
                               onConnect={ () => { this.setState({ clientConnected: true }) } }
                               onDisconnect={ () => { this.setState({ clientConnected: false }) } }
