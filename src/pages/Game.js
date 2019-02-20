@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import '../App.css';
-import Card from "../components/Card";
+import Socketing from "../components/Socketing";
 
 class Game extends Component {
 
@@ -10,7 +10,7 @@ class Game extends Component {
                 <div className="battle-ground">
                     <div className="p1-data">
                         <h4>Player1</h4>
-                        <Card/>
+                        <Socketing/>
                     </div>
                 </div>
             </div>

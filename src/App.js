@@ -3,6 +3,7 @@ import './App.css';
 import {BrowserRouter, Route} from "react-router-dom";
 import Home from "./pages/Home";
 import Game from "./pages/Game";
+import Socketing from "./components/Socketing";
 
 class App extends Component {
     render() {
@@ -16,7 +17,7 @@ class App extends Component {
                             </div>)
                     }
                     }/>
-                    <Route exact={true} paht="/game" render={() => {
+                    <Route exact={true} path="/game" render={() => {
                         return (
                             <div className="App">
                                 <Game/>
