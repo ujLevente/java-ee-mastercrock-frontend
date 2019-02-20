@@ -4,7 +4,7 @@ import Card from "../components/Card";
 import ScoreBoard from "../components/ScoreBoard";
 
 class Game extends Component {
-
+ float
     render() {
         return (
             <div className="container battle-container">

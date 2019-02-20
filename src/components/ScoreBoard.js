@@ -8,6 +8,7 @@ class ScoreBoard extends Component {
             <div className="score-board">
                 <div className="scores">
                     <h3>Scores</h3>
+                    <h2>0 - 0</h2>
                 </div>
             </div>
         )
