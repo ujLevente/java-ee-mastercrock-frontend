@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 
 
-
+var p1Image = "001.png";
 export default class Card extends Component {
 
     onSendMessage = (msg) => {
@@ -15,7 +15,7 @@ export default class Card extends Component {
     render() {
         return (
             <div>
-                <img alt="" height="299" width="193"/>
+                <img src={`/cardImages/${p1Image}`} alt="" height="299" width="193"/>
                 <button
                 onClick={() => this.onSendMessage("leeeeeel")}
                 >KÜLDJED</button>

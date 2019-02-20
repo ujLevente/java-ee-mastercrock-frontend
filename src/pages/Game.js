@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import '../App.css';
 import SockJsClient from "react-stomp";
 import Card from "../components/Card";
+import ScoreBoard from "../components/ScoreBoard";
 
 class Game extends Component {
 
@@ -24,7 +25,7 @@ class Game extends Component {
         try {
             this.clientRef.sendMessage("/app/all", JSON.stringify(selfMsg));
             return true;
-        } catch(e) {
+        } catch (e) {
             return false;
         }
     };
@@ -40,31 +41,57 @@ class Game extends Component {
     }*/
 
     render() {
-        const wsSourceUrl ="http://localhost:8083/handler";
+        const wsSourceUrl = "http://localhost:8083/handler";
         return (
             <div className="App">
-                <SockJsClient url={ wsSourceUrl } topics={["/topic/"+localStorage.getItem("gameId")]}
-                              onMessage={ this.onMessageReceive } ref={ (client) => { this.clientRef = client }}
-                              onConnect={ () => { this.setState({ clientConnected: true }) } }
-                              onDisconnect={ () => { this.setState({ clientConnected: false }) } }
-                              debug={ false }/>
+                <SockJsClient url={wsSourceUrl} topics={["/topic/" + localStorage.getItem("gameId")]}
+                              onMessage={this.onMessageReceive} ref={(client) => {
+                    this.clientRef = client
+                }}
+                              onConnect={() => {
+                                  this.setState({clientConnected: true})
+                              }}
+                              onDisconnect={() => {
+                                  this.setState({clientConnected: false})
+                              }}
+                              debug={false}/>
 
                 <h1>Created Game Id: {localStorage.getItem("gameId")}</h1>
 
                 <div className="battle-ground">
                     <div className="p1-data">
-                        <h4>Player1</h4>
-                        <Card messages={ this.state.messages }
-                              onSendMessage={ this.sendMessage } connected={ this.state.clientConnected }/>
-                    </div>
-                    <div className="p1-data">
-                        <h4>Player2</h4>
-                        <Card messages={ this.state.messages }
-                              onSendMessage={ this.sendMessage } connected={ this.state.clientConnected }/>
+                        <div className="container battle-container">
+                            <div className="row align-items-center justify-content-around">
+                                <div className="p1-data">
+                                    <h4>Player1</h4>
+                                    <Card messages={this.state.messages}
+                                          onSendMessage={this.sendMessage} connected={this.state.clientConnected}/>
+                                    <div className="play-buttons">
+                                        <button className="btn btn-secondary btn-circle btn-xl">P</button>
+                                        <button className="btn btn-secondary btn-circle btn-xl">I</button>
+                                        <button className="btn btn-secondary btn-circle btn-xl">R</button>
+                                    </div>
+                                </div>
+                                <div className="scores col-6 mx-auto text-center">
+                                    <ScoreBoard/>
+                                </div>
+                                <div className="p2-data col mx-auto text-center">
+                                    <h4>Player2</h4>
+                                    <Card messages={this.state.messages}
+                                          onSendMessage={this.sendMessage} connected={this.state.clientConnected}/>
+                                    <div className="play-buttons">
+                                        <button className="btn btn-secondary btn-circle btn-xl">P</button>
+                                        <button className="btn btn-secondary btn-circle btn-xl">I</button>
+                                        <button className="btn btn-secondary btn-circle btn-xl">R</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         )
     }
 }
+
 export default Game;

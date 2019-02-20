@@ -36,14 +36,96 @@ body {
   background-image: url("lava_bg3.jpg");
   background-size:     cover;
   background-repeat:   no-repeat;
-  /*background-position: center center;*/
 }
 
-.battle-ground {
-  margin: auto;
-  height: 400px;
-  width: 50%;
-  padding: 10px;
+.battle-container {
   background-color: rgba(255,255,255, 0.3);
   border-radius: 15px;
 }
+
+
+.btn-circle.btn-xl {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  border-radius: 35px;
+  font-size: 24px;
+  line-height: 1.33;
+  margin: 10px;
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  padding: 6px 0px;
+  border-radius: 15px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.42857;
+  box-shadow: 0 1px 2px 0 #FFFFFF;
+  background-color: #02111f;
+}
+
+.float{
+  position:fixed;
+  width:60px;
+  height:60px;
+  bottom:40px;
+  right:40px;
+  background-color:#0C9;
+  color:#FFF;
+  border-radius:50px;
+  text-align:center;
+  box-shadow: 2px 2px 3px #999;
+}
+
+.battle-container {
+  /*!*margin: auto;*!*/
+  /*!*height: auto;*!*/
+  /*width: 75%  ;*/
+  /*!*padding: 10px;*!*/
+  background-color: rgba(255,255,255, 0.3);
+  border-radius: 15px;
+  /*display: grid;*/
+  /*grid-template-columns: 25% auto 50% auto 25%;*/
+  /*grid-template-rows: auto auto;*/
+}
+
+/*.game-data {*/
+    /*display: flex;*/
+/*}*/
+
+/*.p1-data {*/
+  /*grid-column-start: 1;*/
+  /*grid-column-end: second;*/
+  /*grid-row-start: row3-start;*/
+  /*grid-row-end: 1;*/
+/*}*/
+
+
+
+/*.p2-data {*/
+  /*grid-column-start: 4;*/
+  /*grid-column-end: fifth;*/
+  /*grid-row-start: row3-start;*/
+  /*grid-row-end: 1;*/
+/*}*/
+
+/*.scores {*/
+  /*grid-column-start: 2;*/
+  /*grid-column-end: third;*/
+  /*grid-row-start: row3-start;*/
+  /*grid-row-end: 1;*/
+/*}*/
+
+/*.play-button {*/
+  /*border-radius: 50%;*/
+  /*margin-left: 2%;*/
+  /*margin-right: 2%;*/
+
+/*}*/
+
+/*.play-buttons {*/
+  /*width: 100%;*/
+  /*margin: 2%;*/
+/*}*/
