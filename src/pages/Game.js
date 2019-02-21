@@ -10,15 +10,17 @@ class Game extends Component {
         super(props);
         this.state = {
             clientConnected: false,
-            messages: []
+            currentRound: {}
         };
     }
 
     onMessageReceive = (msg, topic) => {
-        console.log(msg);
-        this.setState(prevState => ({
-            messages: [...prevState.messages, msg]
-        }));
+        this.setState({currentRound : msg});
+        /*this.setState(prevState => ({
+            currentRound : msg
+            //currentRound: [...prevState.currentRound, msg]
+        }));*/
+        console.log(this.state.currentRound);
     };
 
     sendMessage = (msg, selfMsg) => {
@@ -33,7 +35,7 @@ class Game extends Component {
     /*componentWillMount() {
         fetch("http://localhost:8083/history")
             .then((response) => {
-                this.setState({ messages: [response.body] });
+                this.setState({ currentRound: [response.body] });
             })
             .catch(error => {
                 console.log('Error fetching and parsing: ' , error)
@@ -64,28 +66,19 @@ class Game extends Component {
                             <div className="row align-items-center justify-content-around">
                                 <div className="p1-data col mx-auto text-center">
                                     <h4>Player1</h4>
-                                    <Card messages={this.state.messages}
+                                    <Card currentCard={this.state.currentRound.p1FirstCard}
                                           onSendMessage={this.sendMessage}
                                           connected={this.state.clientConnected}/>
-                                    <div className="play-buttons">
-                                        <button className="btn btn-secondary btn-circle btn-xl">P</button>
-                                        <button className="btn btn-secondary btn-circle btn-xl">I</button>
-                                        <button className="btn btn-secondary btn-circle btn-xl">R</button>
-                                    </div>
+
                                 </div>
                                 <div className="scores col-6 mx-auto text-center">
                                     <ScoreBoard/>
                                 </div>
                                 <div className="p2-data col mx-auto text-center">
                                     <h4>Player2</h4>
-                                    <Card messages={this.state.messages}
+                                    <Card currentCard={this.state.currentRound.p2FirstCard}
                                           onSendMessage={this.sendMessage}
                                           connected={this.state.clientConnected}/>
-                                    <div className="play-buttons">
-                                        <button className="btn btn-secondary btn-circle btn-xl">P</button>
-                                        <button className="btn btn-secondary btn-circle btn-xl">I</button>
-                                        <button className="btn btn-secondary btn-circle btn-xl">R</button>
-                                    </div>
                                 </div>
                             </div>
                         </div>
