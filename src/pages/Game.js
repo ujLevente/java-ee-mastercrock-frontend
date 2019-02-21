@@ -62,10 +62,11 @@ class Game extends Component {
                     <div className="p1-data">
                         <div className="container battle-container">
                             <div className="row align-items-center justify-content-around">
-                                <div className="p1-data">
+                                <div className="p1-data col mx-auto text-center">
                                     <h4>Player1</h4>
                                     <Card messages={this.state.messages}
-                                          onSendMessage={this.sendMessage} connected={this.state.clientConnected}/>
+                                          onSendMessage={this.sendMessage}
+                                          connected={this.state.clientConnected}/>
                                     <div className="play-buttons">
                                         <button className="btn btn-secondary btn-circle btn-xl">P</button>
                                         <button className="btn btn-secondary btn-circle btn-xl">I</button>
@@ -78,7 +79,8 @@ class Game extends Component {
                                 <div className="p2-data col mx-auto text-center">
                                     <h4>Player2</h4>
                                     <Card messages={this.state.messages}
-                                          onSendMessage={this.sendMessage} connected={this.state.clientConnected}/>
+                                          onSendMessage={this.sendMessage}
+                                          connected={this.state.clientConnected}/>
                                     <div className="play-buttons">
                                         <button className="btn btn-secondary btn-circle btn-xl">P</button>
                                         <button className="btn btn-secondary btn-circle btn-xl">I</button>

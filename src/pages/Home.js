@@ -19,7 +19,7 @@ class Home extends Component {
     createGame() {
         let idNum = parseInt(Math.random() * (9999 - 1000) + 1000);
         localStorage.setItem("gameId", idNum);
-        fetch("http://localhost:8083/create-game/" + idNum)
+        fetch("http://localhost:8083/create-game/" + idNum + "/" + localStorage.getItem("username"))
             .then(response => console.log(response))
             .catch(error => console.log(error));
     }
@@ -31,7 +31,7 @@ class Home extends Component {
 
     joinGame() {
         let gameId = this.state.joinGameId;
-        fetch("http://localhost:8083/join-game/" + this.state.joinGameId)
+        fetch("http://localhost:8083/join-game/" + this.state.joinGameId + "/" + localStorage.getItem("username"))
             .then(response => response.json())
             .then(respData => {
                 if (respData.status) {
