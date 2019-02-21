@@ -11,15 +11,15 @@ class Game extends Component {
         this.state = {
             clientConnected: false,
             currentRound: {},
-            fetching : false
+            fetching: false
         };
     }
 
     onMessageReceive = (msg, topic) => {
-        console.log("MESSAGE: " +msg);
+        console.log("MESSAGE: " + msg);
         console.log(this.state.currentRound);
 
-        fetch("http://localhost:8083/get-next-round/" + localStorage.getItem("gameId"))
+        fetch("http://localhost:8083/get-next-round/" + localStorage.getItem("gameId") + "/" + msg)
             .then(response => response.json())
             .then(respData => {
                 this.setState({currentRound: respData})
@@ -37,7 +37,7 @@ class Game extends Component {
 
     componentWillMount() {
         console.log("ANYUD2");
-        this.setState({fetching : true});
+        this.setState({fetching: true});
 
         fetch("http://localhost:8083/current/" + localStorage.getItem("gameId"))
             .then(response => response.json())
@@ -45,7 +45,7 @@ class Game extends Component {
                 console.log(respData);
                 this.setState({currentRound: respData});
                 console.log(this.state.currentRound);
-                this.setState({fetching : false})
+                this.setState({fetching: false})
             })
             .catch(error => {
                 console.log('Error fetching and parsing: ', error)
