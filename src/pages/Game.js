@@ -10,17 +10,20 @@ class Game extends Component {
         super(props);
         this.state = {
             clientConnected: false,
-            currentRound: {}
+            currentRound: {},
+            fetching : false
         };
     }
 
     onMessageReceive = (msg, topic) => {
-        this.setState({currentRound : msg});
-        /*this.setState(prevState => ({
-            currentRound : msg
-            //currentRound: [...prevState.currentRound, msg]
-        }));*/
+        console.log("MESSAGE: " +msg);
         console.log(this.state.currentRound);
+
+        fetch("http://localhost:8083/get-next-round/" + localStorage.getItem("gameId"))
+            .then(response => response.json())
+            .then(respData => {
+                this.setState({currentRound: respData})
+            })
     };
 
     sendMessage = (msg, selfMsg) => {
@@ -32,60 +35,74 @@ class Game extends Component {
         }
     };
 
-    /*componentWillMount() {
-        fetch("http://localhost:8083/history")
-            .then((response) => {
-                this.setState({ currentRound: [response.body] });
+    componentWillMount() {
+        console.log("ANYUD2");
+        this.setState({fetching : true});
+
+        fetch("http://localhost:8083/current/" + localStorage.getItem("gameId"))
+            .then(response => response.json())
+            .then(respData => {
+                console.log(respData);
+                this.setState({currentRound: respData});
+                console.log(this.state.currentRound);
+                this.setState({fetching : false})
             })
             .catch(error => {
-                console.log('Error fetching and parsing: ' , error)
+                console.log('Error fetching and parsing: ', error)
             });
-    }*/
+
+    }
 
     render() {
-        const wsSourceUrl = "http://localhost:8083/handler";
-        return (
-            <div className="App">
-                <SockJsClient url={wsSourceUrl} topics={["/topic/" + localStorage.getItem("gameId")]}
-                              onMessage={this.onMessageReceive} ref={(client) => {
-                    this.clientRef = client
-                }}
-                              onConnect={() => {
-                                  this.setState({clientConnected: true})
-                              }}
-                              onDisconnect={() => {
-                                  this.setState({clientConnected: false})
-                              }}
-                              debug={false}/>
 
-                <h1>Created Game Id: {localStorage.getItem("gameId")}</h1>
+        if (this.state.fetching) {
+            return <h1>LOADING</h1>;
 
-                <div className="battle-ground">
-                    <div className="p1-data">
-                        <div className="container battle-container">
-                            <div className="row align-items-center justify-content-around">
-                                <div className="p1-data col mx-auto text-center">
-                                    <h4>Player1</h4>
-                                    <Card currentCard={this.state.currentRound.p1FirstCard}
-                                          onSendMessage={this.sendMessage}
-                                          connected={this.state.clientConnected}/>
+        } else {
+            const wsSourceUrl = "http://localhost:8083/handler";
+            return (
+                <div className="App">
+                    <SockJsClient url={wsSourceUrl} topics={["/topic/" + localStorage.getItem("gameId")]}
+                                  onMessage={this.onMessageReceive} ref={(client) => {
+                        this.clientRef = client
+                    }}
+                                  onConnect={() => {
+                                      this.setState({clientConnected: true})
+                                  }}
+                                  onDisconnect={() => {
+                                      this.setState({clientConnected: false})
+                                  }}
+                                  debug={false}/>
 
-                                </div>
-                                <div className="scores col-6 mx-auto text-center">
-                                    <ScoreBoard/>
-                                </div>
-                                <div className="p2-data col mx-auto text-center">
-                                    <h4>Player2</h4>
-                                    <Card currentCard={this.state.currentRound.p2FirstCard}
-                                          onSendMessage={this.sendMessage}
-                                          connected={this.state.clientConnected}/>
+                    <h1>Created Game Id: {localStorage.getItem("gameId")}</h1>
+
+                    <div className="battle-ground">
+                        <div className="p1-data">
+                            <div className="container battle-container">
+                                <div className="row align-items-center justify-content-around">
+                                    <div className="p1-data col mx-auto text-center">
+                                        <h4>{this.state.currentRound.playerOne.name}</h4>
+                                        <Card currentRound={this.state.currentRound.p1FirstCard}
+                                              onSendMessage={this.sendMessage}
+                                              connected={this.state.clientConnected}/>
+
+                                    </div>
+                                    <div className="scores col-6 mx-auto text-center">
+                                        <ScoreBoard/>
+                                    </div>
+                                    <div className="p2-data col mx-auto text-center">
+                                        <h4>{this.state.currentRound.playerTwo.name}</h4>
+                                        <Card currentRound={this.state.currentRound.p2FirstCard}
+                                              onSendMessage={this.sendMessage}
+                                              connected={this.state.clientConnected}/>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        )
+            )
+        }
     }
 }
 

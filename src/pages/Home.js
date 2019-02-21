@@ -20,7 +20,10 @@ class Home extends Component {
         let idNum = parseInt(Math.random() * (9999 - 1000) + 1000);
         localStorage.setItem("gameId", idNum);
         fetch("http://localhost:8083/create-game/" + idNum + "/" + localStorage.getItem("username"))
-            .then(response => console.log(response))
+            .then(response => {
+                console.log(response)
+                window.location.replace("http://localhost:3000/game")
+            })
             .catch(error => console.log(error));
     }
 
@@ -81,11 +84,11 @@ class Home extends Component {
                     {(!this.state.joinRequest) ?
                         <div>
                                 <div>
-                                    <Link to="/game">
+                                   {/* <Link to="/game">*/}
                                         <button  onClick={() => this.createGame()}>
                                             Create Game
                                         </button>
-                                    </Link>
+                                   {/* </Link>*/}
                                     < button
                                         onClick={() => this.joinRequest()}
                                     >Join to existing game game
