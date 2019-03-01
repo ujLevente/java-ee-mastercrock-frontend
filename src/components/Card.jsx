@@ -7,8 +7,13 @@ export default class Card extends Component {
     onSendMessage = (stat) => {
         const selfMessage = {
             gameId: localStorage.getItem("gameId"),
-            selectedStat : stat
+            selectedStat : stat,
+            roundNumber : this.props.roundNum
         };
+        console.log( "selfmessage is:" + selfMessage.selectedStat + " " + selfMessage.roundNumber);
+
+        selfMessage.roundNumber += 1;
+
         var sendStatus = this.props.onSendMessage(stat, selfMessage);
         return sendStatus;
     };

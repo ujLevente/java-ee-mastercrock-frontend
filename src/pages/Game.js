@@ -16,13 +16,17 @@ class Game extends Component {
     }
 
     onMessageReceive = (msg, topic) => {
-        console.log("MESSAGE: " + msg);
-        console.log(this.state.currentRound);
+        console.log("Choosen stat and round: " + msg);
+        let statAndRound = msg.split("|");
 
-        fetch("http://localhost:8083/get-next-round/" + localStorage.getItem("gameId") + "/" + msg)
+        let stat = statAndRound[0];
+        let round = statAndRound[1];
+
+        fetch("http://localhost:8083/get-next-round/" + localStorage.getItem("gameId") + "/" + stat + "/" + round)
             .then(response => response.json())
             .then(respData => {
                 this.setState({currentRound: respData})
+                console.log(this.state.currentRound);
             })
     };
 
@@ -36,13 +40,11 @@ class Game extends Component {
     };
 
     componentWillMount() {
-        console.log("ANYUD2");
         this.setState({fetching: true});
 
         fetch("http://localhost:8083/current/" + localStorage.getItem("gameId"))
             .then(response => response.json())
             .then(respData => {
-                console.log(respData);
                 this.setState({currentRound: respData});
                 console.log(this.state.currentRound);
                 this.setState({fetching: false})
@@ -84,17 +86,25 @@ class Game extends Component {
                                         <h4>{this.state.currentRound.playerOne.name}</h4>
                                         <Card currentRound={this.state.currentRound.p1FirstCard}
                                               onSendMessage={this.sendMessage}
-                                              connected={this.state.clientConnected}/>
+                                              connected={this.state.clientConnected}
+                                              roundNum={this.state.currentRound.round}
+                                        />
 
                                     </div>
                                     <div className="scores col-6 mx-auto text-center">
-                                        <ScoreBoard/>
+                                        <h3>Attacker: {this.state.currentRound.attacker.name}</h3>
+                                        <ScoreBoard
+                                        p1Score={this.state.currentRound.p1Score}
+                                        p2Score={this.state.currentRound.p2Score}
+                                        />
                                     </div>
                                     <div className="p2-data col mx-auto text-center">
                                         <h4>{this.state.currentRound.playerTwo.name}</h4>
                                         <Card currentRound={this.state.currentRound.p2FirstCard}
                                               onSendMessage={this.sendMessage}
-                                              connected={this.state.clientConnected}/>
+                                              connected={this.state.clientConnected}
+                                              roundNum={this.state.currentRound.round}
+                                        />
                                     </div>
                                 </div>
                             </div>

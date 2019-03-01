@@ -7,8 +7,8 @@ class ScoreBoard extends Component {
         return (
             <div className="score-board">
                 <div className="scores">
-                    <h3>Scores</h3>
-                    <h2>0 - 0</h2>
+                    <h1>Scores</h1>
+                    <h1>{this.props.p1Score} - {this.props.p2Score}</h1>
                 </div>
             </div>
         )
